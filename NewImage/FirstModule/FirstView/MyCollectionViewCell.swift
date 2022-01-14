@@ -7,6 +7,6 @@
 
 import Foundation
 import UIKit
-class CollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var myImageCell: UIImageView!
+class MyCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var ImageCell: UIImageView!
 }

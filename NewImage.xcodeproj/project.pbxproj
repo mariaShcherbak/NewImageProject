@@ -12,7 +12,7 @@
 		2B32522E279193550048C58D /* FirstPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32522D279193550048C58D /* FirstPresenter.swift */; };
 		2B3252322791939B0048C58D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3252312791939B0048C58D /* SecondViewController.swift */; };
 		2B32523527919A830048C58D /* ImageStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B32523427919A830048C58D /* ImageStoryboard.storyboard */; };
-		2B3252422791A24F0048C58D /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3252412791A24F0048C58D /* CollectionViewCell.swift */; };
+		2B3252422791A24F0048C58D /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3252412791A24F0048C58D /* MyCollectionViewCell.swift */; };
 		2B32AE192791856100884991 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32AE182791856100884991 /* AppDelegate.swift */; };
 		2B32AE1B2791856100884991 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32AE1A2791856100884991 /* SceneDelegate.swift */; };
 		2B32AE1D2791856100884991 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B32AE1C2791856100884991 /* NetworkService.swift */; };
@@ -28,7 +28,7 @@
 		2B32522D279193550048C58D /* FirstPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPresenter.swift; sourceTree = "<group>"; };
 		2B3252312791939B0048C58D /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		2B32523427919A830048C58D /* ImageStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImageStoryboard.storyboard; sourceTree = "<group>"; };
-		2B3252412791A24F0048C58D /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		2B3252412791A24F0048C58D /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B32AE152791856100884991 /* NewImage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewImage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B32AE182791856100884991 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B32AE1A2791856100884991 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				2B325224279192D60048C58D /* FirstViewController.swift */,
-				2B3252412791A24F0048C58D /* CollectionViewCell.swift */,
+				2B3252412791A24F0048C58D /* MyCollectionViewCell.swift */,
 			);
 			path = FirstView;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B3252322791939B0048C58D /* SecondViewController.swift in Sources */,
-				2B3252422791A24F0048C58D /* CollectionViewCell.swift in Sources */,
+				2B3252422791A24F0048C58D /* MyCollectionViewCell.swift in Sources */,
 				2B32AE1D2791856100884991 /* NetworkService.swift in Sources */,
 				2B32522E279193550048C58D /* FirstPresenter.swift in Sources */,
 				2B32AE192791856100884991 /* AppDelegate.swift in Sources */,

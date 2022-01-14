@@ -39,10 +39,10 @@ class FirstViewController: UICollectionViewController, FirstViewProtocol, UISear
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? MyCollectionViewCell {
             var model = cellModel[indexPath.row]
             if cellModel.isEmpty {
-                cell.imageCell.image = UIImage(named: "DefaultImage")
+                cell.myImageCell.image = UIImage(named: "DefaultImage")
             } else {
                 // cell.imageCell.image = collection.sd_set
                  //sd_set
