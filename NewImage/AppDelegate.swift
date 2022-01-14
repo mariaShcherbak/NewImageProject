@@ -1,19 +1,26 @@
 //
 //  AppDelegate.swift
-//  NewImage
+//  Image
 //
-//  Created by Tanya on 14.01.2022.
+//  Created by Tanya on 04.01.2022.
 //
 
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    var window: UIWindow?
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let firstVC = FirstViewController()
+        let secondVC = SecondViewController()
+        let tabBarVC = UITabBarController()
+        tabBarVC.setViewControllers([firstVC, secondVC], animated: true)
+        self.window?.rootViewController = tabBarVC
+        self.window?.makeKeyAndVisible()
         return true
     }
 
@@ -33,4 +40,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 
