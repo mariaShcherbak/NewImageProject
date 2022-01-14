@@ -9,5 +9,7 @@ import Foundation
 import UIKit
 
 class SecondViewController: UICollectionViewController {
-    
+    override func viewDidLoad() {
+        
+    }
 }

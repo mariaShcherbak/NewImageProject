@@ -21,8 +21,8 @@ class FirstViewController: UICollectionViewController, FirstViewProtocol, UISear
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "ffffff"
         presenter = FirstPresenter(view: self, networkServise: NetworkService())
-        
         
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
