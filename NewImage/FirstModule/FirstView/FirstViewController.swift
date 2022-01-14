@@ -11,7 +11,7 @@ struct ForCell {
     var urlCell: String
 }
 
-class FirstViewController: UICollectionViewController, FirstViewProtocol, UISearchResultsUpdating {
+class FirstViewController: UIViewController, UICollectionViewDataSource, FirstViewProtocol, UISearchResultsUpdating {
     
     var savedImage: [UIImage] = []
     var presenter: FirstPresenterProtocol!
@@ -34,15 +34,15 @@ class FirstViewController: UICollectionViewController, FirstViewProtocol, UISear
         //добавить var savedImage из UserDefaults
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         cellModel.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? MyCollectionViewCell {
             var model = cellModel[indexPath.row]
             if cellModel.isEmpty {
-                cell.myImageCell.image = UIImage(named: "DefaultImage")
+                cell.ImageCell.image = UIImage(named: "DefaultImage")
             } else {
                 // cell.imageCell.image = collection.sd_set
                  //sd_set
@@ -56,7 +56,7 @@ class FirstViewController: UICollectionViewController, FirstViewProtocol, UISear
         return UICollectionViewCell()
     }
     //нажатие на ячейку
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let alert = UIAlertController(title: nil, message: "Сохранить фото?", preferredStyle: .alert)
         let yesBtn = UIAlertAction(title: "Yes", style: .default, handler: nil)
         /*{

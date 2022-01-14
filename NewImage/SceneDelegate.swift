@@ -11,27 +11,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-/*
-        if let ws = scene as? UIWindowScene {
-            let myWindow = UIWindow(windowScene: ws)
-            let navContr = UINavigationController()
-            let vc = FirstViewController()
-            
-            navContr.viewControllers = [vc]
-            myWindow.rootViewController = navContr
-            
-            self.window = myWindow
-        }
-        */
         
         guard let _ = (scene as? UIWindowScene) else { return }
-        let viewController = FirstViewController()
-        if let windowScene = scene as? UIWindowScene {
-            self.window = UIWindow(windowScene: windowScene)
-            self.window?.rootViewController = viewController
-            self.window?.makeKeyAndVisible() }
+        let storyboard = UIStoryboard(name: "ImageStoryboard", bundle: nil)
+        window?.rootViewController =  storyboard.instantiateInitialViewController()
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
