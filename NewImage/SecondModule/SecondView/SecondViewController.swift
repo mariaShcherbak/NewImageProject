@@ -18,10 +18,12 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         localDatabaseSecondVC = LocalDatabase()
-        delegateFirstViewProtocol = FirstViewController() // хочу использовать метод который есть в FirstViewController
+        delegateFirstViewProtocol = FirstViewController() // для использования метода  FirstViewController
         self.secondCollection.dataSource = self
         self.secondCollection.delegate = self
-        delegateFirstViewProtocol.createModelForCell(urlArrayForCell: localDatabaseSecondVC.filepathArray) { (completition: [ForCell]) in
+        let filepathArray = localDatabaseSecondVC.getFilepathArray()
+        print("массив filepathArray в SecondViewController \(filepathArray)")
+        delegateFirstViewProtocol.createModelForCell(urlArrayForCell: filepathArray) { (completition: [ForCell]) in
             self.cellModel = completition
             print("модель для secondVC \(self.cellModel)")
         }
@@ -40,7 +42,8 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
             if cellModel.isEmpty {
                 print("нет сохраненных изображений")
             } else {
-                cell.secondImageView.sd_setImage(with: URL(string: model.urlCell), completed: nil)
+                cell.secondImageView.sd_setImage(with: URL(fileURLWithPath: model.urlCell), completed: nil)
+                
             }
         return cell
             

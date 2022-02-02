@@ -11,6 +11,8 @@ import UIKit
 protocol LocalDatabaseProtocol: class {
     var filepathArray: [String] { get set }
     func saveImageToDocumentDirectory(_ chosenImage: UIImage) -> String
+    func createFilepathArray(string: String)
+    func getFilepathArray() -> [String]
 }
 
 class LocalDatabase: LocalDatabaseProtocol {
@@ -19,6 +21,7 @@ class LocalDatabase: LocalDatabaseProtocol {
     
     func saveImageToDocumentDirectory(_ chosenImage: UIImage) -> String {
             let directoryPath =  NSHomeDirectory().appending("/Documents/")
+        print("directoryPath \(directoryPath)")
             if !FileManager.default.fileExists(atPath: directoryPath) {
                 do {
                     try FileManager.default.createDirectory(at: NSURL.fileURL(withPath: directoryPath), withIntermediateDirectories: true, attributes: nil)
@@ -39,15 +42,26 @@ class LocalDatabase: LocalDatabaseProtocol {
                // filepathArray.append(urlImage)
                // print("пути к сохраненным картинкам \(filepathArray)")
               //  return filepathArray
-                return String.init("/Documents/\(filename)")
+                return String.init("\(directoryPath)\(filename)")
 
             } catch {
                 print(error)
                 print("file cant not be save at path \(filepath), with error : \(error)")
                 return filepath
-                
             }
         }
+    
+    //создать и сохранить в UserDefaults filepathArray
+    func createFilepathArray(string: String) {
+        filepathArray.append(string)
+        UserDefaults.standard.setValue(filepathArray, forKey: "filepathArray")
+    }
+    
+    //достать и вернуть filepathArray из UserDefaults
+    func getFilepathArray() -> [String] {
+        let filepathArrayUserDefaults = UserDefaults.standard.object(forKey: "filepathArray") as! [String]
+        return filepathArrayUserDefaults
+    }
 }
 
 /* func saveImageFromUrl(url: String) {

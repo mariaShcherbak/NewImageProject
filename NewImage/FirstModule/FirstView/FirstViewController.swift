@@ -79,8 +79,12 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             }
             let urlSaveImage = self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!)
             print("вызвался метод из localDatabase \(urlSaveImage))")
-            self.localDatabaseFirstVC.filepathArray.append(urlSaveImage)
+            // создать и сохранить в userDefaults filepathArray
+            self.localDatabaseFirstVC.createFilepathArray(string: urlSaveImage)
             print("массив сохраненных картинок \(self.localDatabaseFirstVC.filepathArray)")
+            
+            
+            
             
         }
         
