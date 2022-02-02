@@ -72,12 +72,13 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             let localImageView = UIImageView()
             localImageView.sd_setImage(with: URL(string: cell.urlCell), completed: nil)
-            var savedImage = [UIImage]()
+            
+             var savedImage = [UIImage]()
             if localImageView.image != nil {
                 savedImage.append(localImageView.image!)
             }
-            self.localDatabaseFirstVC.filepathArray.append(            self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!))
-            print(self.localDatabaseFirstVC.filepathArray)
+            self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!)
+            print("вызвался метод из localDatabase \(self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!))")
         }
         
         let saveAction = UIAlertAction(title: "Сохранить", style: .default, handler: saveActionHandler)
