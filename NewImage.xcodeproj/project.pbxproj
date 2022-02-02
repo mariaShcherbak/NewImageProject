@@ -283,7 +283,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewImage/Pods-NewImage-frameworks.sh\"\n";
+			shellScript = "echo \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\" >  ${SRCROOT}/${PROJECT_NAME}/files.plist;\n## Chnage Assets.xcassets if not using default one\nfind ${SRCROOT}/${PROJECT_NAME}/Assets.xcassets -type f -not -iname \"*@*\" -name \"*.png\"  -exec basename {} \\; | while read line; do echo \\<key\\>$line\\</key\\>\\<string\\>$line\\</string\\>; done >> ${SRCROOT}/${PROJECT_NAME}/files.plist;\necho \"</dict></plist>\" >>  ${SRCROOT}/${PROJECT_NAME}/files.plist;\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

@@ -28,24 +28,23 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return 2
+        return cellModel.count
         //return localDatabaseSecondVC.savedImageArray.count
        // print("количество сохраненных картинок \(localDatabaseSecondVC.savedImageArray.count)")
     }
    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
  
-       // if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SecondCell", for: indexPath) as? MySecondCollectionViewCell {
-            //var model = localDatabaseSecondVC.savedImageArray[indexPath.row]
-           // print("dfdfdfdfd \(localDatabaseSecondVC.savedImageArray)")
-           // if localDatabaseSecondVC.savedImageArray.isEmpty {
-           //     print("нет сохраненных изображений")
-          //  } else {
-          //      cell.secondImageView.image = model
-          //  }
-       // return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SecondCell", for: indexPath) as? MySecondCollectionViewCell {
+            var model = cellModel[indexPath.row]
+            if cellModel.isEmpty {
+                print("нет сохраненных изображений")
+            } else {
+                cell.secondImageView.sd_setImage(with: URL(string: model.urlCell), completed: nil)
+            }
+        return cell
             
-       // }
+        }
         return UICollectionViewCell()
     }
  

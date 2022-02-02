@@ -77,8 +77,11 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             if localImageView.image != nil {
                 savedImage.append(localImageView.image!)
             }
-            self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!)
-            print("вызвался метод из localDatabase \(self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!))")
+            let urlSaveImage = self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!)
+            print("вызвался метод из localDatabase \(urlSaveImage))")
+            self.localDatabaseFirstVC.filepathArray.append(urlSaveImage)
+            print("массив сохраненных картинок \(self.localDatabaseFirstVC.filepathArray)")
+            
         }
         
         let saveAction = UIAlertAction(title: "Сохранить", style: .default, handler: saveActionHandler)

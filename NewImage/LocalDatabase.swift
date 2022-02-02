@@ -10,14 +10,14 @@ import UIKit
 
 protocol LocalDatabaseProtocol: class {
     var filepathArray: [String] { get set }
-    func saveImageToDocumentDirectory(_ chosenImage: UIImage) -> [String]
+    func saveImageToDocumentDirectory(_ chosenImage: UIImage) -> String
 }
 
 class LocalDatabase: LocalDatabaseProtocol {
     var savedCellModel: [ForCell] = []
     var filepathArray: [String] = []
     
-    func saveImageToDocumentDirectory(_ chosenImage: UIImage) -> [String] {
+    func saveImageToDocumentDirectory(_ chosenImage: UIImage) -> String {
             let directoryPath =  NSHomeDirectory().appending("/Documents/")
             if !FileManager.default.fileExists(atPath: directoryPath) {
                 do {
@@ -35,16 +35,16 @@ class LocalDatabase: LocalDatabaseProtocol {
             let url = NSURL.fileURL(withPath: filepath)
             do {
                 try chosenImage.jpegData(compressionQuality: 1.0)?.write(to: url, options: .atomic)
-                let urlImage = String.init("/Documents/\(filename)")
-                filepathArray.append(urlImage)
-                print("пути к сохраненным картинкам \(filepathArray)")
-                return filepathArray
-               // return String.init("/Documents/\(filename)")
+                //let urlImage = String.init("/Documents/\(filename)")
+               // filepathArray.append(urlImage)
+               // print("пути к сохраненным картинкам \(filepathArray)")
+              //  return filepathArray
+                return String.init("/Documents/\(filename)")
 
             } catch {
                 print(error)
                 print("file cant not be save at path \(filepath), with error : \(error)")
-                return []
+                return filepath
                 
             }
         }
