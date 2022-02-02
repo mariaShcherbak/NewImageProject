@@ -12,6 +12,8 @@ protocol FirstViewProtocol: class {
     
     var cellModel: [ForCell] { get set }
     func createModelForCell (urlArrayForCell: [String], completition: @escaping([ForCell]) -> Void)
+    func reloadCollectionView()
+    
 }
 
 protocol FirstPresenterProtocol: class {
@@ -33,10 +35,13 @@ class FirstPresenter: FirstPresenterProtocol {
         networkServise.getUrlImage(searchText: searchText, completition: { urlArray in
             self.view?.createModelForCell(urlArrayForCell: urlArray, completition: { (completition: [ForCell]) in
                 self.view?.cellModel = completition
-                print("переменная для cell в FirstViewController:")
-                print(self.view?.cellModel)
+                print(self.view?.cellModel.count)
+                
+                
             })
+            self.view?.reloadCollectionView()
         })
+        
     }
     
     

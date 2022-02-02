@@ -8,5 +8,5 @@
 import Foundation
 import UIKit
 class MyCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var ImageCell: UIImageView!
+    @IBOutlet weak var imageCell: UIImageView!
 }

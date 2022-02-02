@@ -11,27 +11,34 @@ struct ForCell {
     var urlCell: String
 }
 
-class FirstViewController: UIViewController, UICollectionViewDataSource, FirstViewProtocol, UISearchResultsUpdating {
+class FirstViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, FirstViewProtocol, UISearchResultsUpdating {
     
-    var savedImage: [UIImage] = []
     var presenter: FirstPresenterProtocol!
+    var localDatabaseFirstVC: LocalDatabaseProtocol!
     var cellModel: [ForCell] = []
     private let search = UISearchController(searchResultsController: nil)
+    
     @IBOutlet weak var collection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "ffffff"
+        self.collection.dataSource = self
+        self.collection.delegate = self
+        self.title = "NEW"
+        localDatabaseFirstVC = LocalDatabase()
         presenter = FirstPresenter(view: self, networkServise: NetworkService())
+       
+        presenter.getImageNetwork(searchText: "cat")
         
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = "Search student"
+        
         navigationItem.searchController = search
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
+       // savedImage = UserDefaults.standard.value(forKey: "savedImage") as? [String] ?? savedImage
         
-        //добавить var savedImage из UserDefaults
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -42,14 +49,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, FirstVi
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? MyCollectionViewCell {
             var model = cellModel[indexPath.row]
             if cellModel.isEmpty {
-                cell.ImageCell.image = UIImage(named: "DefaultImage")
+                cell.imageCell.image = UIImage(named: "DefaultImage")
             } else {
-                // cell.imageCell.image = collection.sd_set
-                 //sd_set
-                 //model.urlCell
+                cell.imageCell.sd_setImage(with: URL(string: model.urlCell), completed: nil)
             }
-            
-           
         return cell
             
         }
@@ -57,31 +60,34 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, FirstVi
     }
     //нажатие на ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: nil, message: "Сохранить фото?", preferredStyle: .alert)
-        let yesBtn = UIAlertAction(title: "Yes", style: .default, handler: nil)
-        /*{
-            var cell = cellModel[indexPath.row]
-            var cellImage = cell.urlCell  // добавить метод sd webSet
-            savedImage.append(cell.urlCell)
-            // добавить сохранение в userdefaults
-        }*/
-        // добавить вызов метода с сохранением в userdefaults
-        let noBtn = UIAlertAction(title: "No", style: .cancel, handler: nil)
-        alert.addAction(yesBtn)
-        alert.addAction(noBtn)
-         /*
-         if let popover = alert.popoverPresentationController {
-            popover.sourceView = indexPath
+        let optionMenu = UIAlertController(title: nil, message: "Сохранить изображение?", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        let saveActionHandler = {(action: UIAlertAction!) -> Void in
+            let alertMessage = UIAlertController(title: nil, message: "Изображение сохранено", preferredStyle: .alert)
+            alertMessage.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+            self.present(alertMessage, animated: true, completion: nil)
+            //сохранение картинки в галерею
+            let cell = self.cellModel[indexPath.row]
+            
+            let localImageView = UIImageView()
+            localImageView.sd_setImage(with: URL(string: cell.urlCell), completed: nil)
+            var savedImage = [UIImage]()
+            if localImageView.image != nil {
+                savedImage.append(localImageView.image!)
+            }
+            self.localDatabaseFirstVC.filepathArray.append(            self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!))
+            print(self.localDatabaseFirstVC.filepathArray)
         }
-         */
+        
+        let saveAction = UIAlertAction(title: "Сохранить", style: .default, handler: saveActionHandler)
+        optionMenu.addAction(cancelAction)
+        optionMenu.addAction(saveAction)
+        self.present(optionMenu, animated: true, completion: nil)
     }
-    
+        
     func updateSearchResults(for searchController: UISearchController) {
         presenter.getImageNetwork(searchText: searchController.searchBar.text!)
-    }
-    
-    func saveInGalery(image: UIImage) {
-        
     }
     
     func createModelForCell (urlArrayForCell: [String], completition: @escaping([ForCell]) -> Void) {
@@ -89,11 +95,15 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, FirstVi
         for i in urlArrayForCell {
             let objectForCell = ForCell(urlCell: i)
             cellModelInFunc.append(objectForCell)
-            completition(cellModelInFunc)
+            
         }
-        print(cellModelInFunc)
-        
+        completition(cellModelInFunc)
         }
+    
+    func reloadCollectionView() {
+        collection.reloadData()
+    }
+    
     
     
 }
