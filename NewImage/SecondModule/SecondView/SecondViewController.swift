@@ -17,9 +17,8 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var tabItem: UITabBarItem!
     
     override func viewDidLoad() {
-        
         localDatabaseSecondVC = LocalDatabase()
-        delegateFirstViewProtocol = FirstViewController() // для использования метода  FirstViewController
+        delegateFirstViewProtocol = FirstViewController() // для использования метода  FirstViewController переделать на протокол отдельный только с методом
         self.secondCollection.dataSource = self
         self.secondCollection.delegate = self
         
@@ -41,22 +40,20 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
- 
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SecondCell", for: indexPath) as? MySecondCollectionViewCell {
             var model = cellModel[indexPath.row]
             if cellModel.isEmpty {
                 print("нет сохраненных изображений")
             } else {
                 cell.secondImageView.sd_setImage(with: URL(fileURLWithPath: model.urlCell), completed: nil)
-                
             }
         return cell
             
         }
         return UICollectionViewCell()
     }
- 
-    }
+    
+}
 
     
    

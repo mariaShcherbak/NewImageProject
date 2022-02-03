@@ -51,6 +51,44 @@ class LocalDatabase: LocalDatabaseProtocol {
             }
         }
     
+    /* func deleteImageToDocumentDirectory(_ chosenImage: UIImage) -> String {
+            let directoryPath =  NSHomeDirectory().appending("/Documents/")
+        print("directoryPath \(directoryPath)")
+            if !FileManager.default.fileExists(atPath: directoryPath) {
+                do {
+                    try FileManager.default.createDirectory(at: NSURL.fileURL(withPath: directoryPath), withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print(error)
+                }
+            }
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddhhmmss"
+
+            let filename = dateFormatter.string(from: Date()).appending(".jpg")
+            let filepath = directoryPath.appending(filename)
+            let url = NSURL.fileURL(withPath: filepath)
+            do {
+                try chosenImage.jpegData(compressionQuality: 1.0)?.write(to: url, options: .atomic)
+                //let urlImage = String.init("/Documents/\(filename)")
+               // filepathArray.append(urlImage)
+               // print("пути к сохраненным картинкам \(filepathArray)")
+              //  return filepathArray
+                return String.init("\(directoryPath)\(filename)")
+
+            } catch {
+                print(error)
+                print("file cant not be save at path \(filepath), with error : \(error)")
+                return filepath
+            }
+        }
+    */
+    
+    
+    
+    
+    
+    
     //создать и сохранить в UserDefaults filepathArray
     func createFilepathArray(string: String) {
         filepathArray.append(string)

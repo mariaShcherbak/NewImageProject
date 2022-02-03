@@ -4,7 +4,7 @@
 //
 //  Created by Tanya on 04.01.2022.
 //
-// интернет запрос дает массив url, формируется модель, обновляется таблица. при обновлении запускается метод нажатия на ячейку, пока не сработал allert - массив пуст  !!! какой массив? и как его не обнулять
+
 
 import UIKit
 
@@ -62,18 +62,16 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             let alertMessage = UIAlertController(title: nil, message: "Изображение сохранено", preferredStyle: .alert)
             alertMessage.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
             self.present(alertMessage, animated: true, completion: nil)
+            
             //сохранение картинки в галерею
             let cell = self.cellModel[indexPath.row]
-            
             let localImageView = UIImageView()
             localImageView.sd_setImage(with: URL(string: cell.urlCell), completed: nil)
-            
                 /*var savedImage = [UIImage]()
             if localImageView.image != nil {
                 savedImage.append(localImageView.image!)
-            }*/ //удалить
+            }*/
             let urlSaveImage = self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!)
-            print("вызвался метод из localDatabase \(urlSaveImage))")
             // создать и сохранить в userDefaults filepathArray
             self.localDatabaseFirstVC.createFilepathArray(string: urlSaveImage)
             print("массив сохраненных картинок \(self.localDatabaseFirstVC.filepathArray)")
