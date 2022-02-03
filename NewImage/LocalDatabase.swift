@@ -17,7 +17,7 @@ protocol LocalDatabaseProtocol: class {
 
 class LocalDatabase: LocalDatabaseProtocol {
     var savedCellModel: [ForCell] = []
-    var filepathArray: [String] = []
+    var filepathArray: [String] = UserDefaults.standard.object(forKey: "filepathArray") as! [String]
     
     func saveImageToDocumentDirectory(_ chosenImage: UIImage) -> String {
             let directoryPath =  NSHomeDirectory().appending("/Documents/")
@@ -57,10 +57,10 @@ class LocalDatabase: LocalDatabaseProtocol {
         UserDefaults.standard.setValue(filepathArray, forKey: "filepathArray")
     }
     
-    //достать и вернуть filepathArray из UserDefaults
+    //filepathArray из UserDefaults
+    
     func getFilepathArray() -> [String] {
-        let filepathArrayUserDefaults = UserDefaults.standard.object(forKey: "filepathArray") as! [String]
-        return filepathArrayUserDefaults
+        return filepathArray
     }
 }
 

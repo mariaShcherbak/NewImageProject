@@ -4,6 +4,7 @@
 //
 //  Created by Tanya on 04.01.2022.
 //
+// интернет запрос дает массив url, формируется модель, обновляется таблица. при обновлении запускается метод нажатия на ячейку, пока не сработал allert - массив пуст  !!! какой массив? и как его не обнулять
 
 import UIKit
 
@@ -11,12 +12,13 @@ struct ForCell {
     var urlCell: String
 }
 
-class FirstViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, FirstViewProtocol, UISearchResultsUpdating {
+class FirstViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, FirstViewProtocol, UISearchBarDelegate {
     
     var presenter: FirstPresenterProtocol!
     var localDatabaseFirstVC: LocalDatabaseProtocol!
     var cellModel: [ForCell] = []
-    private let search = UISearchController(searchResultsController: nil)
+   
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var collection: UICollectionView!
     
@@ -24,23 +26,16 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
         super.viewDidLoad()
         self.collection.dataSource = self
         self.collection.delegate = self
-        self.title = "NEW"
+        self.searchBar.delegate = self
         localDatabaseFirstVC = LocalDatabase()
         presenter = FirstPresenter(view: self, networkServise: NetworkService())
-       
-        presenter.getImageNetwork(searchText: "cat")
-        
-        search.searchResultsUpdater = self
-        search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Search student"
-        
-        navigationItem.searchController = search
-        definesPresentationContext = true
-        navigationItem.hidesSearchBarWhenScrolling = false
-       // savedImage = UserDefaults.standard.value(forKey: "savedImage") as? [String] ?? savedImage
-        
     }
-
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter.getImageNetwork(searchText: searchBar.text ?? "")
+        collection.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         cellModel.count
     }
@@ -73,19 +68,15 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             let localImageView = UIImageView()
             localImageView.sd_setImage(with: URL(string: cell.urlCell), completed: nil)
             
-             var savedImage = [UIImage]()
+                /*var savedImage = [UIImage]()
             if localImageView.image != nil {
                 savedImage.append(localImageView.image!)
-            }
+            }*/ //удалить
             let urlSaveImage = self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!)
             print("вызвался метод из localDatabase \(urlSaveImage))")
             // создать и сохранить в userDefaults filepathArray
             self.localDatabaseFirstVC.createFilepathArray(string: urlSaveImage)
             print("массив сохраненных картинок \(self.localDatabaseFirstVC.filepathArray)")
-            
-            
-            
-            
         }
         
         let saveAction = UIAlertAction(title: "Сохранить", style: .default, handler: saveActionHandler)

@@ -21,7 +21,7 @@ class NetworkService: NetworkServiceProtocol {
     let headers : HTTPHeaders = ["x-rapidapi-host":"contextualwebsearch-websearch-v1.p.rapidapi.com",
                                  "x-rapidapi-key": "429d1f67f5msh6e682b2630b26fap1d379ejsn76891854765a"]
         var searchTextInUrl = searchText
-    AF.request("https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=" + searchText + "&pageNumber=1&pageSize=7&autoCorrect=true", parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response {
+    AF.request("https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=" + searchText + "&pageNumber=1&pageSize=6&autoCorrect=true", parameters: nil, encoding: URLEncoding.default, headers: headers, interceptor: nil).response {
         (responseData) in
         guard let data = responseData.data else {return}
         do {

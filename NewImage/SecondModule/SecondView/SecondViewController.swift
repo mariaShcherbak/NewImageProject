@@ -8,19 +8,21 @@
 import Foundation
 import UIKit
 
-class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITabBarDelegate {
    
-    
     var cellModel = [ForCell]()
     var delegateFirstViewProtocol: FirstViewProtocol!
     var localDatabaseSecondVC: LocalDatabaseProtocol!
     @IBOutlet weak var secondCollection: UICollectionView!
+    @IBOutlet weak var tabItem: UITabBarItem!
     
     override func viewDidLoad() {
+        
         localDatabaseSecondVC = LocalDatabase()
         delegateFirstViewProtocol = FirstViewController() // для использования метода  FirstViewController
         self.secondCollection.dataSource = self
         self.secondCollection.delegate = self
+        
         let filepathArray = localDatabaseSecondVC.getFilepathArray()
         print("массив filepathArray в SecondViewController \(filepathArray)")
         delegateFirstViewProtocol.createModelForCell(urlArrayForCell: filepathArray) { (completition: [ForCell]) in
@@ -29,10 +31,13 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewDidLoad()
+        secondCollection.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellModel.count
-        //return localDatabaseSecondVC.savedImageArray.count
-       // print("количество сохраненных картинок \(localDatabaseSecondVC.savedImageArray.count)")
     }
    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
