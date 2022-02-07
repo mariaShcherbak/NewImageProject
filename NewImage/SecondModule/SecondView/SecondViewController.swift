@@ -26,7 +26,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         print("массив filepathArray в SecondViewController \(filepathArray)")
         delegateFirstViewProtocol.createModelForCell(urlArrayForCell: filepathArray) { (completition: [ForCell]) in
             self.cellModel = completition
-            print("модель для secondVC \(self.cellModel)")
+          //  print("модель для secondVC \(self.cellModel)")
         }
     }
     
@@ -52,7 +52,8 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         return UICollectionViewCell()
     }
-    
+
+    // нажатие на ячейку вызывает алерт, удалить - если да - вызывается метод удаления. он принимает url, вычленяется имя и удаляется файл из папки (папка тоже как часть пути), возвращается массив без выбранной картинки, таблица обновляется.
 }
 
     

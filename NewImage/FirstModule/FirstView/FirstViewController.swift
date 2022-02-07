@@ -4,7 +4,7 @@
 //
 //  Created by Tanya on 04.01.2022.
 //
-//Надо переделать метод сохранения изображения в папку. Принимать он будет объект типа ForCell, сохранять будет под названием, которое будет соответствовать urlCell, и потом сравнивать или удалять надо будет по названию, которое состоит из пути к папке (вынести var в класс) + urlCell при нажатии на изображение.
+//Надо переделать метод сохранения изображения в папку. Принимать он будет объект типа ForCell, сохранять uiimage sd_set(url) будет под названием, которое будет соответствовать urlCell, и потом сравнивать или удалять надо будет по названию, которое состоит из пути к папке (вынести var в класс) + urlCell при нажатии на изображение.
 
 import UIKit
 
@@ -65,16 +65,10 @@ class FirstViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             //сохранение картинки в галерею
             let cell = self.cellModel[indexPath.row]
-            let localImageView = UIImageView()
-            localImageView.sd_setImage(with: URL(string: cell.urlCell), completed: nil)
-                /*var savedImage = [UIImage]()
-            if localImageView.image != nil {
-                savedImage.append(localImageView.image!)
-            }*/
-            let urlSaveImage = self.localDatabaseFirstVC.saveImageToDocumentDirectory(localImageView.image!)
+            let urlSaveImage = self.localDatabaseFirstVC.saveImageToDocumentDirectory(cell)
+            
             // создать и сохранить в userDefaults filepathArray
             self.localDatabaseFirstVC.createFilepathArray(string: urlSaveImage)
-            print("массив сохраненных картинок \(self.localDatabaseFirstVC.filepathArray)")
         }
         
         let saveAction = UIAlertAction(title: "Сохранить", style: .default, handler: saveActionHandler)
