@@ -52,8 +52,31 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         return UICollectionViewCell()
     }
-
     // нажатие на ячейку вызывает алерт, удалить - если да - вызывается метод удаления. он принимает url, вычленяется имя и удаляется файл из папки (папка тоже как часть пути), возвращается массив без выбранной картинки, таблица обновляется.
+    //нажатие на ячейку
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let optionMenu = UIAlertController(title: nil, message: "Удалить изображение?", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        let saveActionHandler = {(action: UIAlertAction!) -> Void in
+            let alertMessage = UIAlertController(title: nil, message: "Изображение удалено", preferredStyle: .alert)
+            alertMessage.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+            self.present(alertMessage, animated: true, completion: nil)
+            
+            //сохранение картинки в галерею
+            let cell = self.cellModel[indexPath.row]
+                // вызвать удаление
+            // cохранить в userDefaults filepathArray
+            UserDefaults.standard.setValue(self.localDatabaseSecondVC.deleteImage(cell), forKey: "filepathArray")
+            self.secondCollection.reloadData()
+        }
+        
+        let saveAction = UIAlertAction(title: "Удалить", style: .default, handler: saveActionHandler)
+        optionMenu.addAction(cancelAction)
+        optionMenu.addAction(saveAction)
+        self.present(optionMenu, animated: true, completion: nil)
+        self.secondCollection.reloadData()
+    }
 }
 
     

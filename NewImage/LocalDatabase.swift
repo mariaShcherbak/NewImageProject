@@ -14,6 +14,7 @@ protocol LocalDatabaseProtocol: class {
     func saveImageToDocumentDirectory(_ chosen: ForCell) -> String
     func createFilepathArray(string: String)
     func getFilepathArray() -> [String]
+    func deleteImage(_ chosen: ForCell) -> [String]
 }
 
 class LocalDatabase: LocalDatabaseProtocol {
@@ -54,11 +55,20 @@ class LocalDatabase: LocalDatabaseProtocol {
         }
     }
     
-    func deleteImage(_ chosen: ForCell) -> String {
-      //  let name = nameImageInUrl(url: chosen.urlCell)
-        let delete = FileManager.removeItem(<#T##self: FileManager##FileManager#>)
-        removeItem(atPath: chosen.urlCell)
-        
+    func deleteImage(_ chosen: ForCell) -> [String] {
+        do {
+            try FileManager.default.removeItem(atPath: chosen.urlCell)
+            print("изображение удалено")
+            if let index = filepathArray.firstIndex(of: chosen.urlCell) {
+                filepathArray.remove(at: index)
+            }
+            return filepathArray
+        }
+         catch {
+            print(error)
+            
+            return filepathArray
+        }
     }
     
     func nameImageInUrl(url: String) -> String {
