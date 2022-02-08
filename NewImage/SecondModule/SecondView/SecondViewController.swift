@@ -22,7 +22,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.secondCollection.dataSource = self
         self.secondCollection.delegate = self
         
-        let filepathArray = localDatabaseSecondVC.getFilepathArray()
+        var filepathArray = localDatabaseSecondVC.getFilepathArray()
         print("массив filepathArray в SecondViewController \(filepathArray)")
         delegateFirstViewProtocol.createModelForCell(urlArrayForCell: filepathArray) { (completition: [ForCell]) in
             self.cellModel = completition
@@ -65,17 +65,17 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             //сохранение картинки в галерею
             let cell = self.cellModel[indexPath.row]
-                // вызвать удаление
-            // cохранить в userDefaults filepathArray
+            // вызвать удаление, cохранить в userDefaults filepathArray
+            self.localDatabaseSecondVC.deleteImage(cell)
             UserDefaults.standard.setValue(self.localDatabaseSecondVC.deleteImage(cell), forKey: "filepathArray")
-            self.secondCollection.reloadData()
+            self.viewWillAppear(true)
         }
         
         let saveAction = UIAlertAction(title: "Удалить", style: .default, handler: saveActionHandler)
         optionMenu.addAction(cancelAction)
         optionMenu.addAction(saveAction)
         self.present(optionMenu, animated: true, completion: nil)
-        self.secondCollection.reloadData()
+        //self.secondCollection.reloadData()
     }
 }
 
